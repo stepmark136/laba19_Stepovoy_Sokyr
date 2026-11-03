@@ -1,25 +1,30 @@
-﻿string text = "Код 2026";
+﻿
 
+Console.Write("Введите строку: ");
+string text = Console.ReadLine() ?? "";
 
-Console.WriteLine(text.Length);
-Console.WriteLine(text[0]);
-Console.WriteLine(text[text.Length - 1]);
-Console.WriteLine();
-Console.WriteLine(CountCharacter("мама", 'м'));
-Console.WriteLine(CountCharacter("Код 2026", ' '));
-Console.WriteLine(CountCharacter("", 'а'));
-Console.WriteLine(CountDigits("Код 2026!"));
-Console.WriteLine(CountLetters("Код 2026!"));
-Console.WriteLine(CountDigits("A2B3"));
-Console.WriteLine(FindCharacterIndex("banana", 'a'));
-Console.WriteLine(FindCharacterIndex("banana", 'b'));
-Console.WriteLine(FindCharacterIndex("banana", 'z'));
-Console.WriteLine(FindCharacterIndex("", 'a'));
-if (text.Length > 0)
+System.Console.WriteLine($">>> Анализ строки <<<");
+System.Console.WriteLine();
+System.Console.WriteLine($"Исходная строка: [{text}]");
+System.Console.WriteLine($"Длина: {text.Length}");
+System.Console.WriteLine($"Букв: {CountLetters(text)}");
+System.Console.WriteLine($"Цифр: {CountDigits(text)}");
+System.Console.WriteLine($"Пробелов: {CountCharacter(text, ' ')}");
+System.Console.WriteLine($"Слов: {CountWords(text)}");
+System.Console.WriteLine($"Без пробелов по краям: [{text.Trim()}]");
+System.Console.WriteLine($"Верхний регистр: [{text.ToUpper()}]");
+System.Console.WriteLine($"Замена пробелов: [{text.Replace(' ', '_')}]");
+Console.Write("Введите один символ для поиска: ");
+char target = Convert.ToChar(Console.ReadLine());
+int index = FindCharacterIndex(text, target);
+if (index == -1)
 {
-    Console.WriteLine($"Первый символ: {text[0]}");
+    System.Console.WriteLine("Символ не найден");
 }
-
+else
+{
+    System.Console.WriteLine($"Первый индекс: {index}");
+}
 
 
 
@@ -77,16 +82,18 @@ int CountDigits(string text)
 
 int FindCharacterIndex(string text, char target)
 {
-    int index = -1;
-
     for (int i = 0; i < text.Length; i++)
     {
         if (text[i] == target)
-        {
-            index = i;
-            return index;
-        }
+            return i;
     }
-
-    return index;
+    return -1;
 }
+
+
+int CountWords(string text)
+{
+    string[] words = text.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+    return words.Length;
+}
+
